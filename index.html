@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login with OTP</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #43cea2, #185a9d);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+    .container {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 12px;
+      width: 300px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #00c9a7;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #00b298;
+    }
+    .otp-section {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <input type="text" id="mobile" placeholder="Enter Mobile Number" maxlength="10">
+    <input type="text" id="pan" placeholder="Enter PAN Number" maxlength="10">
+    <button onclick="sendOTP()">Send OTP</button>
+
+    <div class="otp-section" id="otpSection">
+      <input type="number" id="otp" placeholder="Enter OTP">
+      <button onclick="verifyOTP()">Verify OTP</button>
+    </div>
+    <p id="message" style="text-align:center; margin-top:10px;"></p>
+  </div>
+
+  <script>
+    let generatedOTP = "";
+
+    function sendOTP() {
+      const mobile = document.getElementById("mobile").value;
+      const pan = document.getElementById("pan").value;
+      if (mobile.length !== 10 || pan.length !== 10) {
+        document.getElementById("message").innerText = "Enter valid Mobile and PAN numbers.";
+        return;
+      }
+      generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
+      console.log("Simulated OTP:", generatedOTP); // Simulate sending OTP
+      document.getElementById("otpSection").style.display = "block";
+      document.getElementById("message").innerText = "OTP sent successfully!";
+    }
+
+    function verifyOTP() {
+      const enteredOTP = document.getElementById("otp").value;
+      if (enteredOTP === generatedOTP) {
+        document.getElementById("message").innerText = "OTP Verified Successfully!";
+      } else {
+        document.getElementById("message").innerText = "Invalid OTP. Please try again.";
+      }
+    }
+  </script>
+</body>
+</html>
